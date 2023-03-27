@@ -9,6 +9,7 @@ import TypesCard from '../components/TypesCard'
 
 const TypesScreen = () => {
   const types = useSelector(state => state.types.types)
+  
   return (
     <View style={styles.screen}>
       <FlatList
