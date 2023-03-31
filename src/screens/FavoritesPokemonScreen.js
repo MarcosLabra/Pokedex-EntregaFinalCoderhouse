@@ -11,23 +11,22 @@ const FavoritesPokemonScreen = () => {
   const pokemons = useSelector(state => state.favorites.favPokemons)
   const dispatch = useDispatch()
 
-  const handlerOnPressButton = (item) => {
+  const handlerOnPressItem = (item) => {
     dispatch(removeFavorite(item.id))
   }
 
   React.useEffect(() => {
     dispatch(getFavorites())
-  }, [pokemons])
+  })
 
   return (
     <View style={styles.screen}>
       <FlatList
         numColumns={2}
         data={pokemons}
-        renderItem={({ item }) => <PokemonCard pokemon={item} onPress={() => { }} />}
+        renderItem={({ item }) => <PokemonCard pokemon={item} onPress={handlerOnPressItem} />}
         keyExtractor={item => item.id}
       />
-      <Button title='Borrar pokemons' onPress={handlerOnPressButton} color={COLORS.green} />
     </View >
   )
 }

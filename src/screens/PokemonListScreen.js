@@ -15,9 +15,9 @@ const PokemonListScreen = () => {
   const pokemons = useSelector(state => state.pokemons.pokemons)
   const dispatch = useDispatch()
 
-  React.useEffect(() => {
-    dispatch(getPokemons())
-  }, [])
+  // React.useEffect(() => {
+  //   dispatch(getPokemons())
+  // }, [])
 
   const handlerOnPressItem = item => dispatch(addFavorite(item))
 
