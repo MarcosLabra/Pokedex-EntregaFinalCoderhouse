@@ -1,9 +1,8 @@
 import GET_POKEMONS from "../actions/pokemons.actions"
-
-import POKEMONS from "../../data/pokemons"
+// import POKEMONS from "../../data/pokemons"
 
 const initialState = {
-  pokemons: POKEMONS,
+  pokemons: [],
 }
 
 const pokemonReducer = (state = initialState, action) => {
@@ -11,7 +10,7 @@ const pokemonReducer = (state = initialState, action) => {
     case GET_POKEMONS:
       return {
         ...state,
-        pokemons: action.pokemonsList
+        pokemons: action.pokemons
       }
     default:
       return state
