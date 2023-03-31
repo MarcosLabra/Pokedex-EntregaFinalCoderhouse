@@ -3,6 +3,7 @@ import { FlatList, StyleSheet, Text, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
 import COLORS from '../constants/Colors'
+import { getPokemons } from '../store/actions/pokemons.actions'
 import { addFavorite } from '../store/actions/favorites.action'
 
 import PokemonCard from '../components/PokemonCard'
@@ -10,13 +11,15 @@ import PokemonCard from '../components/PokemonCard'
 
 const PokemonListScreen = () => {
 
+
   const pokemons = useSelector(state => state.pokemons.pokemons)
   const dispatch = useDispatch()
 
-  const handlerOnPressItem = (item) => {
-    dispatch(addFavorite(item))
-  }
+  React.useEffect(() => {
+    dispatch(getPokemons())
+  }, [])
 
+  const handlerOnPressItem = item => dispatch(addFavorite(item))
 
   return (
     <View style={styles.screen}>
@@ -25,7 +28,6 @@ const PokemonListScreen = () => {
         data={pokemons}
         renderItem={({ item }) => <PokemonCard pokemon={item} onPress={handlerOnPressItem} />}
         keyExtractor={item => item.id}
-
       />
     </View >
   )

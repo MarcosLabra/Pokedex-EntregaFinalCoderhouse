@@ -32,7 +32,6 @@ const TabNavigator = () => {
           tabBarStyle: styles.tabBar,
           tabBarActiveTintColor: COLORS.accent,
           tabBarInactiveTintColor: COLORS.green
-
         }}
       >
         <BottomTabs.Screen name="Pokemons"
@@ -75,7 +74,6 @@ const TabNavigator = () => {
         />
       </BottomTabs.Navigator>
     </NavigationContainer>
-
   )
 }
 

@@ -1,4 +1,5 @@
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 
 import favoriteReducer from './reducers/favorites.reducer'
 import pokemonReducer from './reducers/pokemons.reducer'
@@ -10,4 +11,4 @@ const RootReducer = combineReducers({
   favorites: favoriteReducer
 })
 
-export default createStore(RootReducer)
+export default createStore(RootReducer, applyMiddleware(thunk))
