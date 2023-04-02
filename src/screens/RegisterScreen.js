@@ -3,16 +3,19 @@ import React from 'react'
 import COLORS from '../constants/Colors'
 import { useDispatch, useSelector } from 'react-redux'
 import { signUp } from '../store/actions/auth.actions'
-import Input from '../components/Input'
 
 
 const RegisterScreen = () => {
+
+  const dispatch = useDispatch()
+  const isAuthLoading = useSelector(state => state.auth.isLoading)
+
 
   const [email, setEmail] = React.useState('')
   const [password, setpassword] = React.useState('')
 
   const onHandleRegister = () => {
-    console.log('register')
+    dispatch(signUp(email, password))
   }
 
   return (
@@ -25,11 +28,11 @@ const RegisterScreen = () => {
             style={styles.textInput}
             autoCapitalize='none'
             keyboardType='email-address'
-            onChange={setEmail} />
+            onChangeText={setEmail} />
           <Text style={styles.label}>Password</Text>
           <TextInput
             style={styles.textInput}
-            onChange={setpassword}
+            onChangeText={setpassword}
             autoCapitalize='none'
             secureTextEntry
           />
@@ -37,7 +40,7 @@ const RegisterScreen = () => {
             style={styles.loginButton}
             onPress={onHandleRegister}
           >
-            <Text style={styles.loginButtonText}>Registrarse</Text>
+            <Text style={styles.loginButtonText}>{isAuthLoading ? 'Cargando...' : 'Registrarse'}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.prompt}>

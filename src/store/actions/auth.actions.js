@@ -1,11 +1,12 @@
 import { SIGN_UP_URL } from "../../constants/DataBase";
 export const SIGN_UP = "SIGN_UP";
+export const SIGN_UP_FAIL = "SIGN_UP_FAIL";
 
 export const signUp = (email, password) => {
   return async dispatch => {
     try {
       dispatch({
-        type: "SIGN_UP_START"
+        type: 'SIGN_UP_START'
       })
       const response = await fetch(SIGN_UP_URL, {
         method: 'POST',
@@ -18,6 +19,7 @@ export const signUp = (email, password) => {
           returnSecureToken: true
         }),
       });
+      const data = await response.json();
 
       if (!response.ok) {
         const errorResData = await response.json();
@@ -29,10 +31,6 @@ export const signUp = (email, password) => {
         }
         throw new Error(message);
       }
-
-      const data = await response.json();
-
-      console.log(data);
 
       dispatch({
         type: SIGN_UP,
