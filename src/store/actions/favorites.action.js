@@ -26,7 +26,7 @@ export const addFavorite = (payload) => {
 
       dispatch({
         type: ADD_FAVORITE,
-        pokemon,
+        pokemon: payload
       })
     } catch (error) {
       console.log(error.message)

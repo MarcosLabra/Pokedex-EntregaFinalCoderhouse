@@ -1,32 +1,35 @@
-export const GET_POKEMONS = 'GET_POKEMONS'
+import axios from 'axios';
+
+export const GET_POKEMONS_LOADING = "GET_POKEMONS_LOADING"
+export const GET_POKEMONS_SUCCESS = "GET_POKEMONS_SUCCESS"
+export const GET_POKEMONS_FAILURE = "GET_POKEMONS_FAILURE"
+
 
 export const getPokemons = () => {
-    return async dispatch => {
-        fetch('https://pokeapi.co/api/v2/pokemon?limit=20&offset=0')
-            .then(response => response.json())
-            .then(data => {
-                const pokemons = data.results;
-                const pokemonPromises = pokemons.map(pokemon => {
-                    return fetch(pokemon.url)
-                        .then(response => response.json())
-                        .then(pokemonData => {
-                            return {
-                                id:pokemonData.id,
-                                name: pokemonData.name,
-                                sprite: pokemonData.sprites.front_default
-                            };
-                        });
-                });
-                return Promise.all(pokemonPromises);
-            })
-            .then(pokemonsWithSprites => {
-                console.log("consoleLog de la request:")
-                console.log(pokemonsWithSprites);
-                dispatch({
-                    type: GET_POKEMONS,
-                    pokemons: pokemonsWithSprites
-                })
-            })
-            .catch(error => console.error(error));
+  return async dispatch => {
+    try {
+      dispatch({ type: GET_POKEMONS_LOADING });
+      const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=20');
+      const pokemonList = response.data.results;
+      const pokemonData = await Promise.all(
+        pokemonList.map(async (pokemon) => {
+          const result = await axios.get(pokemon.url);
+          return {
+            id: result.data.id,
+            name: pokemon.name,
+            sprite: result.data.sprites.front_default,
+          };
+        })
+      );
+      dispatch({
+        type: GET_POKEMONS_SUCCESS,
+        payload: pokemonData,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_POKEMONS_FAILURE,
+        payload: error.message,
+      });
     }
+  }
 }

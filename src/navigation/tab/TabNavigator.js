@@ -1,5 +1,4 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet } from "react-native";
 
@@ -18,62 +17,60 @@ const BottomTabs = createBottomTabNavigator();
 
 const TabNavigator = () => {
   return (
-    <NavigationContainer>
-      <BottomTabs.Navigator
-        initialRouteName="Pokemons"
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: COLORS.primary
-          },
-          headerTintColor: COLORS.white,
-          headerTitleStyle: {
-            fontFamily: 'OpenSans_700Bold'
-          },
-          tabBarStyle: styles.tabBar,
-          tabBarActiveTintColor: COLORS.accent,
-          tabBarInactiveTintColor: COLORS.green
+    <BottomTabs.Navigator
+      initialRouteName="Pokemons"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: COLORS.primary
+        },
+        headerTintColor: COLORS.white,
+        headerTitleStyle: {
+          fontFamily: 'OpenSans_700Bold'
+        },
+        tabBarStyle: styles.tabBar,
+        tabBarActiveTintColor: COLORS.accent,
+        tabBarInactiveTintColor: COLORS.green
+      }}
+    >
+      <BottomTabs.Screen name="Pokemons"
+        options={{
+          title: "Pokemons",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="pokeball" size={size} color={color} />
+          )
         }}
-      >
-        <BottomTabs.Screen name="Pokemons"
-          options={{
-            title: "Pokemons",
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="pokeball" size={size} color={color} />
-            )
-          }}
-          component={PokemonListScreen} />
-        <BottomTabs.Screen
-          name="PokemonTypes"
-          component={TypesScreen}
-          options={{
-            title: "Pokemon Types",
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="format-list-bulleted-type" size={size} color={color} />
-            )
-          }}
-        />
-        <BottomTabs.Screen
-          name="FavoritePokemons"
-          component={FavoritesPokemonScreen}
-          options={{
-            title: "Favorites Pokemons",
-            tabBarIcon: ({ color, size }) => (
-              <MaterialIcons name="favorite" size={size} color={color} />
-            )
-          }}
-        />
-        <BottomTabs.Screen
-          name="SearchPokemon"
-          component={SearchScreen}
-          options={{
-            title: "Search your Pokemon",
-            tabBarIcon: ({ color, size }) => (
-              <FontAwesome name="search" size={size} color={color} />
-            )
-          }}
-        />
-      </BottomTabs.Navigator>
-    </NavigationContainer>
+        component={PokemonListScreen} />
+      <BottomTabs.Screen
+        name="PokemonTypes"
+        component={TypesScreen}
+        options={{
+          title: "Pokemon Types",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="format-list-bulleted-type" size={size} color={color} />
+          )
+        }}
+      />
+      <BottomTabs.Screen
+        name="FavoritePokemons"
+        component={FavoritesPokemonScreen}
+        options={{
+          title: "Favorites Pokemons",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="favorite" size={size} color={color} />
+          )
+        }}
+      />
+      <BottomTabs.Screen
+        name="SearchPokemon"
+        component={SearchScreen}
+        options={{
+          title: "Search your Pokemon",
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="search" size={size} color={color} />
+          )
+        }}
+      />
+    </BottomTabs.Navigator>
   )
 }
 
