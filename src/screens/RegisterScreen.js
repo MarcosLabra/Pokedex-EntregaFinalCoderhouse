@@ -5,99 +5,39 @@ import { useDispatch, useSelector } from 'react-redux'
 import { signUp } from '../store/actions/auth.actions'
 import Input from '../components/Input'
 
-const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
-
-const formReducer = (state, action) => {
-  if (action.type === FORM_INPUT_UPDATE) {
-    const inputValues = {
-      ...state.inputValues,
-      [action.input]: action.value
-    }
-    const inputValidities = {
-      ...state.inputValidities,
-      [action.input]: action.isValid
-    }
-    let formIsValid = true;
-    for (const key in inputValidities) {
-      formIsValid = formIsValid && inputValidities[key];
-    }
-    return {
-      formIsValid,
-      inputValidities,
-      inputValues
-    }
-  }
-  return state;
-}
-
 
 const RegisterScreen = () => {
-  const dispatch = useDispatch();
-  const isAuthLoading = useSelector(state => state.auth.isLoading);
 
-  const [formState, dispatchFormState] = React.useReducer(formReducer, {
-    inputValues: {
-      email: '',
-      password: ''
-    },
-    inputValidities: {
-      email: false,
-      password: false
-    },
-    formIsValid: false
-  });
-
+  const [email, setEmail] = React.useState('')
+  const [password, setpassword] = React.useState('')
 
   const onHandleRegister = () => {
-    if (!formState.formIsValid) {
-      dispatch(signUp(email, password))
-    } else {
-      alert('Por favor, ingrese un email y una contraseña válidos')
-    }
+    console.log('register')
   }
-
-  const handleChangedText = React.useCallback((inputIdentifier, inputValue, inputValidity) => {
-    dispatchFormState({
-      type: FORM_INPUT_UPDATE,
-      value: inputValue,
-      isValid: inputValidity,
-      input: inputIdentifier
-    })
-  }, [dispatchFormState])
 
   return (
     <KeyboardAvoidingView style={styles.screen} behavior="padding">
       <View style={styles.container}>
         <Text style={styles.title}>REGISTRO</Text>
         <View style={styles.form}>
-          <Input
-            initialValue={formState.inputValues.email}
-            initiallyValid={formState.inputValidities.email}
-            onInputChange={handleChangedText}
-            id='email'
-            required
-            email
-            minLength={5}
-            label='Email'
-            errorText='Por favor, ingrese un email válido'
+          <Text style={styles.label}>Email</Text>
+          <TextInput
+            style={styles.textInput}
             autoCapitalize='none'
             keyboardType='email-address'
-          />
-          <Input
-            initialValue={formState.inputValues.email}
-            initiallyValid={formState.inputValidities.email}
-            onInputChange={handleChangedText}
-            id='password'
-            required
-            minLength={5}
-            label='Password'
-            errorText='Por favor, ingrese un password válido'
+            onChange={setEmail} />
+          <Text style={styles.label}>Password</Text>
+          <TextInput
+            style={styles.textInput}
+            onChange={setpassword}
             autoCapitalize='none'
-            keyboardType='email-address'
             secureTextEntry
           />
-          <TouchableOpacity style={styles.loginButton} onPress={onHandleRegister}>
-            <Text style={styles.loginButtonText}>{isAuthLoading ? 'Loading...' : 'Registrarse'}</Text>
+          <TouchableOpacity
+            style={styles.loginButton}
+            onPress={onHandleRegister}
+          >
+            <Text style={styles.loginButtonText}>Registrarse</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.prompt}>
