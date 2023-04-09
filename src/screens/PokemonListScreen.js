@@ -13,6 +13,7 @@ const PokemonListScreen = () => {
 
 
   const pokemons = useSelector(state => state.pokemons.pokemonList)
+  const user = useSelector(state => state.auth.userId)
   const dispatch = useDispatch()
 
   React.useEffect(() => {
@@ -20,7 +21,7 @@ const PokemonListScreen = () => {
   }, [])
 
 
-  const handlerOnPressItem = item => dispatch(addFavorite(item))
+  const handlerOnPressItem = item => dispatch(addFavorite(item, user))
 
   return (
     <View style={styles.screen}>

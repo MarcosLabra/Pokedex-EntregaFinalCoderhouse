@@ -2,10 +2,9 @@ import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, TextInp
 import React from 'react'
 import COLORS from '../constants/Colors'
 import { useDispatch, useSelector } from 'react-redux'
-import { signUp } from '../store/actions/auth.actions'
+import { signIn } from '../store/actions/auth.actions'
 
-
-const RegisterScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation }) => {
 
   const dispatch = useDispatch()
   const isAuthLoading = useSelector(state => state.auth.isLoading)
@@ -13,27 +12,19 @@ const RegisterScreen = ({ navigation }) => {
 
   const [email, setEmail] = React.useState('')
   const [password, setpassword] = React.useState('')
-  const [displayName, setDisplayName] = React.useState('')
 
   const onHandleRegister = () => {
-    dispatch(signUp(email, password, displayName))
+    dispatch(signIn(email, password))
   }
-
   const onHandleNavigate = () => {
-    navigation.navigate('login')
+    navigation.navigate('register')
   }
 
   return (
     <KeyboardAvoidingView style={styles.screen} behavior="height">
       <View style={styles.container}>
-        <Text style={styles.title}>REGISTRO</Text>
+        <Text style={styles.title}>INGRESO</Text>
         <View style={styles.form}>
-          <Text style={styles.label}>Name</Text>
-          <TextInput
-            style={styles.textInput}
-            onChangeText={setDisplayName}
-            autoCapitalize='none'
-          />
           <Text style={styles.label}>Email</Text>
           <TextInput
             style={styles.textInput}
@@ -51,15 +42,15 @@ const RegisterScreen = ({ navigation }) => {
             style={styles.loginButton}
             onPress={onHandleRegister}
           >
-            <Text style={styles.loginButtonText}>{isAuthLoading ? 'Cargando...' : 'Registrarse'}</Text>
+            <Text style={styles.loginButtonText}>{isAuthLoading ? 'Cargando...' : 'Ingresar'}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.prompt}>
           <Text style={styles.promptMessage}>
-            ¿Ya tienes una cuenta?
+            ¿No tienes una cuenta?
           </Text>
           <TouchableOpacity onPress={onHandleNavigate}>
-            <Text style={styles.promptButton}>Iniciar sesión</Text>
+            <Text style={styles.promptButton}>Registrarse</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -67,7 +58,7 @@ const RegisterScreen = ({ navigation }) => {
   )
 }
 
-export default RegisterScreen
+export default LoginScreen
 
 const styles = StyleSheet.create({
   screen: {

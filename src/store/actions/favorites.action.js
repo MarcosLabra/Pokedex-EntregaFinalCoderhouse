@@ -4,13 +4,11 @@ export const ADD_FAVORITE = 'ADD_FAVORITE'
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE'
 export const GET_FAVORITES = 'GET_FAVORITES'
 
-const favCollection = "favPokemons"
 
-
-export const addFavorite = (payload) => {
+export const addFavorite = (payload, user) => {
   return async dispatch => {
     try {
-      const response = await fetch(`${URL_API}/${favCollection}.json`, {
+      const response = await fetch(`${URL_API}/${user}/favPokemons.json`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -34,11 +32,11 @@ export const addFavorite = (payload) => {
   }
 }
 
-export const removeFavorite = (pokemonId) => {
+export const removeFavorite = (pokemonId, user) => {
   console.log(pokemonId)
   return async dispatch => {
     try {
-      await fetch(`${URL_API}/${favCollection}/${pokemonId}.json`, {
+      await fetch(`${URL_API}/${user}/favPokemons/${pokemonId}.json`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
@@ -52,10 +50,10 @@ export const removeFavorite = (pokemonId) => {
 
 }
 
-export const getFavorites = () => {
+export const getFavorites = (user) => {
   return async dispatch => {
     try {
-      const response = await fetch(`${URL_API}/${favCollection}.json`, {
+      const response = await fetch(`${URL_API}/${user}/favPokemons.json`, {
         headers: {
           'Content-Type': 'application/json'
         },

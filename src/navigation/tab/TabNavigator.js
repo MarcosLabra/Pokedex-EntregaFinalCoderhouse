@@ -7,7 +7,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons'
 
 import PokemonListScreen from "../../screens/PokemonListScreen";
-import TypesScreen from "../../screens/TypesScreen";
+import ProfileScreen from "../../screens/ProfileScreen";
 import SearchScreen from "../../screens/SearchScreen";
 import FavoritesPokemonScreen from "../../screens/FavoritesPokemonScreen";
 
@@ -32,6 +32,16 @@ const TabNavigator = () => {
         tabBarInactiveTintColor: COLORS.green
       }}
     >
+      <BottomTabs.Screen
+        name="UserProfile"
+        component={ProfileScreen}
+        options={{
+          title: "My Profile",
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="user-circle-o" size={size} color={color} />
+          )
+        }}
+      />
       <BottomTabs.Screen name="Pokemons"
         options={{
           title: "Pokemons",
@@ -40,16 +50,6 @@ const TabNavigator = () => {
           )
         }}
         component={PokemonListScreen} />
-      <BottomTabs.Screen
-        name="PokemonTypes"
-        component={TypesScreen}
-        options={{
-          title: "Pokemon Types",
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="format-list-bulleted-type" size={size} color={color} />
-          )
-        }}
-      />
       <BottomTabs.Screen
         name="FavoritePokemons"
         component={FavoritesPokemonScreen}

@@ -9,14 +9,15 @@ import { removeFavorite, getFavorites } from '../store/actions/favorites.action'
 const FavoritesPokemonScreen = () => {
 
   const pokemons = useSelector(state => state.favorites.favPokemons)
+  const user = useSelector(state => state.auth.userId)
   const dispatch = useDispatch()
 
   const handlerOnPressItem = (item) => {
-    dispatch(removeFavorite(item.id))
+    dispatch(removeFavorite(item.id,user))
   }
 
   React.useEffect(() => {
-    dispatch(getFavorites())
+    dispatch(getFavorites(user))
   })
 
   return (
