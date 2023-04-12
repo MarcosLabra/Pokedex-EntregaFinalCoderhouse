@@ -1,4 +1,6 @@
+import * as FileSystem from 'expo-file-system'
 import { SIGN_UP_URL, SIGN_IN_URL } from "../../constants/DataBase";
+export const ADD_PIC = 'ADD_PIC'
 export const SIGN_UP = "SIGN_UP";
 export const SIGN_UP_FAIL = "SIGN_UP_FAIL";
 export const SIGN_IN = "SIGN_IN";
@@ -98,7 +100,7 @@ export const signIn = (email, password) => {
 }
 
 
-export const signOut = (email, password) => {
+export const signOut = () => {
   return async dispatch => {
     try {
 
@@ -115,5 +117,25 @@ export const signOut = (email, password) => {
       })
       alert(error);
     }
+  }
+}
+
+
+export const addPic = (image) => {
+
+  return async dispatch => {
+    const fileName = image.split('/').pop()
+    const Path = FileSystem.documentDirectory + fileName
+    try {
+      FileSystem.moveAsync({
+        from: image,
+        to: Path
+      })
+
+    } catch (error) {
+      console.log(error.message)
+      throw error
+    }
+    dispatch({ type: ADD_PIC, payload: { image: Path } })
   }
 }

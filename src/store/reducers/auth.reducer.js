@@ -1,11 +1,11 @@
-import { SIGN_IN, SIGN_UP } from "../actions/auth.actions";
+import { SIGN_IN, SIGN_UP, ADD_PIC } from "../actions/auth.actions";
 
 const initalState = {
     token: null,
     userId: null,
     userEmail: null,
     userName: null,
-    userPic:null,
+    userPic: null,
     isLoading: false,
 
 }
@@ -39,6 +39,11 @@ const authReducer = (state = initalState, action) => {
                 userEmail: action.userEmail,
                 userName: action.userName,
                 isLoading: false
+            }
+        case ADD_PIC:
+            return {
+                ...state,
+                userPic: action.payload.image
             }
         default:
             return state;

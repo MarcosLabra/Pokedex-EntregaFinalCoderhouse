@@ -10,7 +10,7 @@ const RootReducer = combineReducers({
   pokemons: pokemonReducer,
   types: typeReducer,
   favorites: favoriteReducer,
-  auth: authReducer
+  auth: authReducer,
 })
 
 export default createStore(RootReducer, applyMiddleware(thunk))

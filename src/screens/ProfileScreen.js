@@ -5,9 +5,10 @@ import { signOut } from '../store/actions/auth.actions';
 import ImageSelector from '../components/ImageSelector';
 
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = () => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.auth);
+  console.log(user)
 
   const handleSignOut = () => {
     dispatch(signOut());
@@ -15,7 +16,7 @@ const ProfileScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ImageSelector />
+      <ImageSelector userPic={user.userPic}/>
       <Text style={styles.name}>{user.userName}</Text>
       <Text style={styles.email}>{user.userEmail}</Text>
       <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
