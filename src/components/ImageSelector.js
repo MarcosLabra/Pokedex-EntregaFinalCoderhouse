@@ -3,10 +3,10 @@ import React, { useState } from 'react'
 import * as ImagePicker from 'expo-image-picker'
 
 import COLORS from '../constants/Colors'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addPic } from '../store/actions/auth.actions'
 
-const ImageSelector = ({userPic}) => {
+const ImageSelector = ({ userPic }) => {
 
   const dispatch = useDispatch()
 
@@ -22,6 +22,7 @@ const ImageSelector = ({userPic}) => {
   }
 
   const handlerTakeImage = async () => {
+   
     const isCameraOk = await VerifyPermissions()
     if (!isCameraOk) return
 
@@ -30,7 +31,6 @@ const ImageSelector = ({userPic}) => {
       aspect: [1, 1],
       quality: 0.5
     })
-    console.log(image.assets[0].uri)
     dispatch(addPic(image.assets[0]?.uri))
   }
 

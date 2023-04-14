@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import TabNavigator from "../navigation/tab/TabNavigator";
 import AuthNavigator from "../navigation/AuthNavigator";
