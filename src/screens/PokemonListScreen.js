@@ -1,10 +1,10 @@
-import React from 'react'
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import React, { useRef, useState } from 'react'
+import { Button, FlatList, StyleSheet, Text, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
 import COLORS from '../constants/Colors'
 import { getPokemons } from '../store/actions/pokemons.actions'
-import { addFavorite, reset } from '../store/actions/favorites.action'
+import { addFavorite } from '../store/actions/favorites.action'
 
 
 import PokemonCard from '../components/PokemonCard'
@@ -12,17 +12,20 @@ import PokemonCard from '../components/PokemonCard'
 
 const PokemonListScreen = ({ navigation }) => {
 
+  const [offset, setOffset] = useState(0);
   const favList = useSelector(state => state.favorites.favPokemons)
   const pokemons = useSelector(state => state.pokemons.pokemonList)
   const user = useSelector(state => state.auth.userId)
   const dispatch = useDispatch()
 
   React.useEffect(() => {
-    dispatch(getPokemons())
-  }, [])
+    dispatch(getPokemons(offset))
+    flatListRef.current.scrollToOffset({ animated: true, offset: 0 });
+  }, [offset])
 
 
   const handlerOnPressItem = item => dispatch(addFavorite(item, user))
+
 
   const onSelectPokemon = item => {
     navigation.navigate('pokemonDetail', {
@@ -32,9 +35,21 @@ const PokemonListScreen = ({ navigation }) => {
     })
   }
 
+  const handleNext = () => {
+    setOffset(offset => offset + 20);
+  };
+  const handleRestart = () => {
+    setOffset(0);
+  };
+  const handlePrev = () => {
+    setOffset(offset => offset - 20);
+  };
+
+  const flatListRef = useRef(null);
   return (
     <View style={styles.screen}>
       <FlatList
+        ref={flatListRef}
         numColumns={2}
         data={pokemons}
         renderItem={({ item }) =>
@@ -42,9 +57,31 @@ const PokemonListScreen = ({ navigation }) => {
             onSelect={() => onSelectPokemon(item)}
             onPress={() => handlerOnPressItem(item)}
             favList={favList}
-          />}
+            id={true}
+          />
+        }
         keyExtractor={item => item.id}
       />
+      <View style={styles.buttonsContainer}>
+        <Button
+          title='Prev'
+          onPress={handlePrev}
+          color={COLORS.green}
+          disabled={offset === 0}
+        />
+        <Button
+          title='Restart'
+          onPress={handleRestart}
+          color={COLORS.green}
+          disabled={offset === 0}
+        />
+        <Button
+          title='Next'
+          onPress={handleNext}
+          disabled={offset === 1280}
+          color={COLORS.green}
+        />
+      </View>
     </View >
   )
 }
@@ -62,5 +99,10 @@ const styles = StyleSheet.create({
     fontFamily: 'OpenSans_400Regular',
     marginBottom: 20,
     color: COLORS.black
+  },
+  buttonsContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
   }
 })

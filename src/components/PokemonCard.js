@@ -6,19 +6,18 @@ import COLORS from '../constants/Colors'
 import { useSelector } from 'react-redux'
 
 
-const PokemonCard = ({ pokemon, onSelect, onPress, favList }) => {
+const PokemonCard = ({ pokemon, onSelect, onPress, favList, id }) => {
 
   const isFav = favList.find(el => el.name === pokemon.name);
+  const isLoading = useSelector(state => state.favorites.isLoading)
 
   return (
     <View style={styles.card}>
       <TouchableOpacity style={styles.pokemon} onPress={() => onPress(pokemon)}>
         <View style={styles.favorite}>
-
           {isFav ?
             <MaterialIcons name="favorite" size={24} color={COLORS.primary} /> :
             <MaterialIcons name="favorite-outline" size={24} color={COLORS.primary} />}
-
         </View>
         <Image
           style={styles.image}
@@ -28,7 +27,11 @@ const PokemonCard = ({ pokemon, onSelect, onPress, favList }) => {
         />
       </TouchableOpacity>
       <TouchableOpacity style={styles.pokemonName} onPress={() => onSelect(pokemon)}>
-        <Text style={styles.text}>{pokemon.name}</Text>
+      {
+        id ? 
+        <Text style={styles.text}>{pokemon.id} - {pokemon.name}</Text> :
+        <Text style={styles.text}> {pokemon.name}</Text>
+      }
       </TouchableOpacity>
     </View>
   )
