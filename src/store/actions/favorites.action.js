@@ -28,7 +28,7 @@ export const addFavorite = (payload, user) => {
         })
       })
 
-      alert(`${payload.name} fue agregado a tu lista de favoritos`);
+      alert(`${payload.name} was added to your favorite pokemons`);
 
       dispatch({
         type: ADD_FAVORITE,
@@ -50,6 +50,9 @@ export const removeFavorite = (pokemonId, user) => {
           'Content-Type': 'application/json'
         },
       })
+
+      alert(`${payload.name} was removed to your favorite pokemons`);
+
       dispatch({ type: REMOVE_FAVORITE, pokemonId })
     } catch (error) {
       console.log(error.message)

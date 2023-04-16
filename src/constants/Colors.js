@@ -5,5 +5,6 @@ export default {
   white: '#fbfbfb',
   black: '#1D300F',
   delete: '#D92F21',
-  green: '#2da890'
+  green: '#2da890',
+  disabled:'#782525'
 }

@@ -28,8 +28,8 @@ const TabNavigator = () => {
           fontFamily: 'OpenSans_700Bold'
         },
         tabBarStyle: styles.tabBar,
-        tabBarActiveTintColor: COLORS.accent,
-        tabBarInactiveTintColor: COLORS.green
+        tabBarActiveTintColor: COLORS.white,
+        tabBarInactiveTintColor: COLORS.disabled
       }}
     >
       <BottomTabs.Screen
