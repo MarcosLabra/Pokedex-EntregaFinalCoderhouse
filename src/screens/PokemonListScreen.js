@@ -38,8 +38,11 @@ const PokemonListScreen = ({ navigation }) => {
   const handleNext = () => {
     setOffset(offset => offset + 20);
   };
-  const handleRestart = () => {
+  const handleFirst = () => {
     setOffset(0);
+  };
+  const handleLast = () => {
+    setOffset(1280);
   };
   const handlePrev = () => {
     setOffset(offset => offset - 20);
@@ -64,20 +67,26 @@ const PokemonListScreen = ({ navigation }) => {
       />
       <View style={styles.buttonsContainer}>
         <Button
+          title='First'
+          onPress={handleFirst}
+          color={COLORS.green}
+          disabled={offset === 0}
+        />
+        <Button
           title='Prev'
           onPress={handlePrev}
           color={COLORS.green}
           disabled={offset === 0}
         />
         <Button
-          title='Restart'
-          onPress={handleRestart}
-          color={COLORS.green}
-          disabled={offset === 0}
-        />
-        <Button
           title='Next'
           onPress={handleNext}
+          disabled={offset === 1280}
+          color={COLORS.green}
+        />
+        <Button
+          title='Last'
+          onPress={handleLast}
           disabled={offset === 1280}
           color={COLORS.green}
         />
