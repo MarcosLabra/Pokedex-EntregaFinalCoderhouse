@@ -15,7 +15,7 @@ const ProfileScreen = () => {
 
   return (
     <View style={styles.container}>
-      <ImageSelector userPic={user.userPic}/>
+      <ImageSelector userPic={user.userPic} />
       <Text style={styles.name}>{user.userName}</Text>
       <Text style={styles.email}>{user.userEmail}</Text>
       <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
@@ -26,27 +26,30 @@ const ProfileScreen = () => {
 };
 
 export default ProfileScreen
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    padding: 60,
   },
   image: {
+    marginTop:20,
     width: 100,
     height: 100,
     borderRadius: 50,
-    marginBottom: 20,
   },
   name: {
+    marginTop:20,
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
+
   },
   email: {
     fontSize: 16,
     marginBottom: 20,
+    flexGrow: 1,
   },
   signOutButton: {
     backgroundColor: 'red',
