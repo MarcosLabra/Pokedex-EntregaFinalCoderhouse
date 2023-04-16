@@ -6,12 +6,12 @@ import { FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons'
 
-import PokemonListScreen from "../../screens/PokemonListScreen";
 import ProfileScreen from "../../screens/ProfileScreen";
 import SearchScreen from "../../screens/SearchScreen";
-import FavoritesPokemonScreen from "../../screens/FavoritesPokemonScreen";
 
 import COLORS from "../../constants/Colors";
+import PokemonNavigator from "../PokemonNavigator";
+import FavPokemonNavigator from "../FavPokemonNavigator";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -49,12 +49,12 @@ const TabNavigator = () => {
             <MaterialCommunityIcons name="pokeball" size={size} color={color} />
           )
         }}
-        component={PokemonListScreen} />
+        component={PokemonNavigator} />
       <BottomTabs.Screen
         name="FavoritePokemons"
-        component={FavoritesPokemonScreen}
+        component={FavPokemonNavigator}
         options={{
-          title: "Favorites Pokemons",
+          title: "Favorites",
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="favorite" size={size} color={color} />
           )

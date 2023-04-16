@@ -8,7 +8,16 @@ export const GET_FAVORITES = 'GET_FAVORITES'
 export const addFavorite = (payload, user) => {
   return async dispatch => {
     try {
-      const response = await fetch(`${URL_API}/${user}/favPokemons.json`, {
+      const response = await fetch(`${URL_API}/${user}/favPokemons.json`);
+      const data = await response.json();
+      const favorites = data || [];
+      const exists = Object.values(favorites).some(favorite => favorite.pokemon.name === payload.name);
+      if (exists) {
+        alert(`${payload.name} ya está en tu lista de favoritos`);
+        return;
+      }
+
+      const responseAdd = await fetch(`${URL_API}/${user}/favPokemons.json`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -19,8 +28,7 @@ export const addFavorite = (payload, user) => {
         })
       })
 
-      const result = await response.json();
-      console.log(result)
+      alert(`${payload.name} fue agregado a tu lista de favoritos`);
 
       dispatch({
         type: ADD_FAVORITE,
@@ -71,5 +79,13 @@ export const getFavorites = (user) => {
     } catch (error) {
       console.log(error.message)
     }
+  }
+}
+
+export const reset = () => {
+  return async dispatch => {
+    dispatch({
+      type: 'RESET_FAVORITES'
+    })
   }
 }

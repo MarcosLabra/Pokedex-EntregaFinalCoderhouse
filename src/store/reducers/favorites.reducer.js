@@ -19,9 +19,10 @@ const favoriteReducer = (state = initialState, action) => {
       }
     case GET_FAVORITES:
       return {
-        ...state,
         favPokemons: action.payload
       }
+    case "RESET_FAVORITES":
+      return initialState
     default:
       return state
   }

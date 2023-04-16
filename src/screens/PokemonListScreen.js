@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import COLORS from '../constants/Colors'
 import { getPokemons } from '../store/actions/pokemons.actions'
-import { addFavorite } from '../store/actions/favorites.action'
+import { addFavorite, reset } from '../store/actions/favorites.action'
+
 
 import PokemonCard from '../components/PokemonCard'
 
 
-const PokemonListScreen = () => {
-
+const PokemonListScreen = ({ navigation }) => {
 
   const pokemons = useSelector(state => state.pokemons.pokemonList)
   const user = useSelector(state => state.auth.userId)
@@ -23,12 +23,24 @@ const PokemonListScreen = () => {
 
   const handlerOnPressItem = item => dispatch(addFavorite(item, user))
 
+  const onSelectPokemon = item => {
+    navigation.navigate('pokemonDetail', {
+      pokemonId: item.id,
+      pokemonName: item.name,
+      pokemonUrl: item.url
+    })
+  }
+
   return (
     <View style={styles.screen}>
       <FlatList
         numColumns={2}
         data={pokemons}
-        renderItem={({ item }) => <PokemonCard pokemon={item} onPress={handlerOnPressItem} />}
+        renderItem={({ item }) =>
+          <PokemonCard pokemon={item}
+            onSelect={() => onSelectPokemon(item)}
+            onPress={() => handlerOnPressItem(item)}
+          />}
         keyExtractor={item => item.id}
       />
     </View >

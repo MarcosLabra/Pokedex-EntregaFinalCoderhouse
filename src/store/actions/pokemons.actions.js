@@ -17,6 +17,7 @@ export const getPokemons = () => {
           return {
             id: result.data.id,
             name: pokemon.name,
+            url:pokemon.url,
             sprite: result.data.sprites.front_default,
           };
         })
@@ -33,3 +34,4 @@ export const getPokemons = () => {
     }
   }
 }
+

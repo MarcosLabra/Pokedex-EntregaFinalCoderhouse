@@ -6,8 +6,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import favoriteReducer from './reducers/favorites.reducer'
 import pokemonReducer from './reducers/pokemons.reducer'
-import typeReducer from './reducers/types.reducer'
 import authReducer from './reducers/auth.reducer'
+import pokemonDetailReducer from './reducers/pokemonDetail.reducer'
 
 
 const persistConfig = {
@@ -17,9 +17,9 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   pokemons: pokemonReducer,
-  types: typeReducer,
   favorites: favoriteReducer,
   auth: authReducer,
+  pokemonDetail: pokemonDetailReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
