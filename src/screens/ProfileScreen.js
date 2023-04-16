@@ -19,7 +19,7 @@ const ProfileScreen = () => {
       <Text style={styles.name}>{user.userName}</Text>
       <Text style={styles.email}>{user.userEmail}</Text>
       <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
-        <Text style={styles.signOutButtonText}>Cerrar sesión</Text>
+        <Text style={styles.signOutButtonText}>LOG OUT</Text>
       </TouchableOpacity>
     </View>
   );

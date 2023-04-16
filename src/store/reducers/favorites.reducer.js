@@ -1,4 +1,4 @@
-import { ADD_FAVORITE, REMOVE_FAVORITE, GET_FAVORITES } from "../actions/favorites.action"
+import { ADD_FAVORITE, REMOVE_FAVORITE, GET_FAVORITES} from "../actions/favorites.action"
 
 const initialState = {
   favPokemons: []
@@ -6,20 +6,21 @@ const initialState = {
 
 const favoriteReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_FAVORITE:
+      case ADD_FAVORITE:
       const newList = [...state.favPokemons, action.pokemon]
       return {
         ...state,
-        favPokemons: newList
+        favPokemons: newList,
       }
     case REMOVE_FAVORITE:
       return {
         ...state,
-        favPokemons: favPokemons.filter(pokemon => pokemon.id !== action.pokemonId)
+        favPokemons: favPokemons.filter(pokemon => pokemon.id !== action.pokemonId),
       }
     case GET_FAVORITES:
       return {
-        favPokemons: action.payload
+        ...state,
+        favPokemons: action.payload,
       }
     case "RESET_FAVORITES":
       return initialState
@@ -27,7 +28,5 @@ const favoriteReducer = (state = initialState, action) => {
       return state
   }
 }
-
-
 
 export default favoriteReducer

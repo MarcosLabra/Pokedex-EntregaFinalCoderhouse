@@ -1,26 +1,34 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
-import React from 'react'
-import COLORS from '../constants/Colors'
+import React, { useEffect } from 'react'
 
-const PokemonCard = ({ pokemon, onSelect, onPress, isFav }) => {
+import COLORS from '../constants/Colors'
+import { useSelector } from 'react-redux'
+
+
+const PokemonCard = ({ pokemon, onSelect, onPress, favList }) => {
+
+  const isFav = favList.find(el => el.name === pokemon.name);
 
   return (
     <View style={styles.card}>
-      <TouchableOpacity style={styles.pokemon} onPress={() => onSelect(pokemon)}>
+      <TouchableOpacity style={styles.pokemon} onPress={() => onPress(pokemon)}>
+        <View style={styles.favorite}>
+
+          {isFav ?
+            <MaterialIcons name="favorite" size={24} color={COLORS.primary} /> :
+            <MaterialIcons name="favorite-outline" size={24} color={COLORS.primary} />}
+
+        </View>
         <Image
           style={styles.image}
           source={{
             uri: pokemon.sprite,
           }}
         />
-        <Text style={styles.text}>{pokemon.name}</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.favorite} onPress={() => onPress(pokemon)}>
-      {isFav ?
-        <MaterialIcons name="favorite" size={20} color={COLORS.white} /> :
-        <MaterialIcons name="favorite-outline" size={20} color={COLORS.white} />
-      }
+      <TouchableOpacity style={styles.pokemonName} onPress={() => onSelect(pokemon)}>
+        <Text style={styles.text}>{pokemon.name}</Text>
       </TouchableOpacity>
     </View>
   )
@@ -37,21 +45,21 @@ const styles = StyleSheet.create({
   pokemon: {
     backgroundColor: COLORS.accent,
     width: '100%',
-    height: 150,
+    height: 120,
     alignItems: 'center',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
   image: {
     width: 120,
-    height: 120
+    height: 120,
   },
   text: {
     fontFamily: 'OpenSans_700Bold',
     fontSize: 14,
-    color: COLORS.black
+    color: COLORS.white
   },
-  favorite: {
+  pokemonName: {
     width: '100%',
     alignItems: 'center',
     backgroundColor: COLORS.green,
@@ -60,9 +68,9 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 4,
     borderBottomRightRadius: 4,
   },
-  favoriteText: {
-    color: COLORS.white,
-    fontFamily: 'OpenSans_700Bold',
-    fontSize: 13
+  favorite: {
+    position: 'absolute',
+    right: 5,
+    top: 5,
   }
 })

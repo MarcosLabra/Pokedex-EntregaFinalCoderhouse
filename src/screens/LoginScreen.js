@@ -23,7 +23,7 @@ const LoginScreen = ({ navigation }) => {
   return (
     <KeyboardAvoidingView style={styles.screen} behavior="height">
       <View style={styles.container}>
-        <Text style={styles.title}>INGRESO</Text>
+        <Text style={styles.title}>LOGIN</Text>
         <View style={styles.form}>
           <Text style={styles.label}>Email</Text>
           <TextInput
@@ -42,15 +42,15 @@ const LoginScreen = ({ navigation }) => {
             style={styles.loginButton}
             onPress={onHandleRegister}
           >
-            <Text style={styles.loginButtonText}>{isAuthLoading ? 'Cargando...' : 'Ingresar'}</Text>
+            <Text style={styles.loginButtonText}>{isAuthLoading ? 'Cargando...' : 'Login'}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.prompt}>
           <Text style={styles.promptMessage}>
-            ¿No tienes una cuenta?
+            ¿Don't have an account?
           </Text>
           <TouchableOpacity onPress={onHandleNavigate}>
-            <Text style={styles.promptButton}>Registrarse</Text>
+            <Text style={styles.promptButton}>Register</Text>
           </TouchableOpacity>
         </View>
       </View>

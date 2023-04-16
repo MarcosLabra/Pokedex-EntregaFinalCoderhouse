@@ -13,7 +13,7 @@ export const addFavorite = (payload, user) => {
       const favorites = data || [];
       const exists = Object.values(favorites).some(favorite => favorite.pokemon.name === payload.name);
       if (exists) {
-        alert(`${payload.name} ya está en tu lista de favoritos`);
+        alert(`${payload.name} already exists in your favorite list`);
         return;
       }
 
@@ -29,11 +29,11 @@ export const addFavorite = (payload, user) => {
       })
 
       alert(`${payload.name} was added to your favorite pokemons`);
-
       dispatch({
         type: ADD_FAVORITE,
-        pokemon: payload
+        pokemon: payload,
       })
+
     } catch (error) {
       console.log(error.message)
     }
@@ -42,7 +42,7 @@ export const addFavorite = (payload, user) => {
 
 export const removeFavorite = (pokemonId, user) => {
   console.log(pokemonId)
-  return async dispatch => {
+  return async () => {
     try {
       await fetch(`${URL_API}/${user}/favPokemons/${pokemonId}.json`, {
         method: 'DELETE',
@@ -50,15 +50,10 @@ export const removeFavorite = (pokemonId, user) => {
           'Content-Type': 'application/json'
         },
       })
-
-      alert(`${payload.name} was removed to your favorite pokemons`);
-
-      dispatch({ type: REMOVE_FAVORITE, pokemonId })
     } catch (error) {
       console.log(error.message)
     }
   }
-
 }
 
 export const getFavorites = (user) => {
@@ -69,7 +64,6 @@ export const getFavorites = (user) => {
           'Content-Type': 'application/json'
         },
       })
-
       const result = await response.json();
       const favPokemons = Object.keys(result).map(key => ({
         ...result[key].pokemon,

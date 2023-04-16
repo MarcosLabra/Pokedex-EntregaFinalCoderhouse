@@ -16,8 +16,8 @@ export const getPokemons = () => {
           const result = await axios.get(pokemon.url);
           return {
             id: result.data.id,
-            name: pokemon.name,
-            url:pokemon.url,
+            name: pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1).toLowerCase(),
+            url: pokemon.url,
             sprite: result.data.sprites.front_default,
           };
         })

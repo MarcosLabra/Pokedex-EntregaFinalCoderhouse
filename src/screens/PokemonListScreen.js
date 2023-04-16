@@ -12,6 +12,7 @@ import PokemonCard from '../components/PokemonCard'
 
 const PokemonListScreen = ({ navigation }) => {
 
+  const favList = useSelector(state => state.favorites.favPokemons)
   const pokemons = useSelector(state => state.pokemons.pokemonList)
   const user = useSelector(state => state.auth.userId)
   const dispatch = useDispatch()
@@ -40,6 +41,7 @@ const PokemonListScreen = ({ navigation }) => {
           <PokemonCard pokemon={item}
             onSelect={() => onSelectPokemon(item)}
             onPress={() => handlerOnPressItem(item)}
+            favList={favList}
           />}
         keyExtractor={item => item.id}
       />

@@ -36,7 +36,7 @@ const FavoritesPokemonScreen = ({ navigation }) => {
           pokemon={item}
           onSelect={() => onSelectPokemon(item)}
           onPress={() => handlerOnPressItem(item)}
-          isFav={true}
+          favList={pokemons}
         />}
         keyExtractor={item => item.id}
       />
