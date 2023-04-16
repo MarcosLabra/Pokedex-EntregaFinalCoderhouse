@@ -6,5 +6,6 @@ export default {
   black: '#1D300F',
   delete: '#D92F21',
   green: '#2da890',
-  disabled:'#782525'
+  disabled:'#782525',
+  fire: '#ff5a00'
 }

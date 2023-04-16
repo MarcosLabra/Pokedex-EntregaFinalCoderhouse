@@ -1,9 +1,10 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View, FlatList } from 'react-native'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPokemonDetail } from '../store/actions/pokemonDetail.action'
 
 import COLORS from '../constants/Colors'
+import TypeCard from '../components/TypeCard'
 
 const PokemonDetailScreen = ({ route }) => {
 	const dispatch = useDispatch()
@@ -21,9 +22,11 @@ const PokemonDetailScreen = ({ route }) => {
 			<Text style={styles.title}>Height</Text>
 			<Text style={styles.text}>{pokemon.height} cm</Text>
 			<Text style={styles.title}>Types</Text>
-			{pokemon.types.map((type) => (
-        <Text style={styles.text} key={type}>-{type}-</Text>
-      ))}
+			<FlatList
+				data={pokemon.types}
+				renderItem={TypeCard}
+				keyExtractor={(item) => item}
+			/>
 		</View>
 	)
 }
@@ -33,7 +36,7 @@ export default PokemonDetailScreen
 const styles = StyleSheet.create({
 	screen: {
 		flex: 1,
-		paddingTop:20,
+		paddingTop: 20,
 		alignItems: 'center'
 	},
 	image: {
@@ -44,7 +47,7 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		fontFamily: 'OpenSans_700Bold',
 		color: COLORS.black,
-		marginTop:20
+		marginTop: 20
 	},
 	text: {
 		fontSize: 20,
