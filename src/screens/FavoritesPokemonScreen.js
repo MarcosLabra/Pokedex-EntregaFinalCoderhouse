@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -23,7 +23,7 @@ const FavoritesPokemonScreen = ({ navigation }) => {
     })
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getFavorites(user))
   })
 

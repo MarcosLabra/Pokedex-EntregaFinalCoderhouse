@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, TextInput } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import COLORS from '../constants/Colors'
 import { useDispatch, useSelector } from 'react-redux'
 import { signIn } from '../store/actions/auth.actions'
@@ -10,8 +10,8 @@ const LoginScreen = ({ navigation }) => {
   const isAuthLoading = useSelector(state => state.auth.isLoading)
 
 
-  const [email, setEmail] = React.useState('')
-  const [password, setpassword] = React.useState('')
+  const [email, setEmail] = useState('')
+  const [password, setpassword] = useState('')
 
   const onHandleRegister = () => {
     dispatch(signIn(email, password))

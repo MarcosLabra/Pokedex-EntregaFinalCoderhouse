@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { getPokemonData } from '../../utils/getPokemons';
 
 export const GET_POKEMON_LOADING = "GET_POKEMON_LOADING"

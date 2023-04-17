@@ -1,8 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-import COLORS from '../constants/Colors'
-
 const colorsByType = {
   normal: '#A8A878',
   fire: '#F08030',

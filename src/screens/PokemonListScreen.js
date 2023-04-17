@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button, FlatList, StyleSheet, Text, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -18,7 +18,7 @@ const PokemonListScreen = ({ navigation }) => {
   const user = useSelector(state => state.auth.userId)
   const dispatch = useDispatch()
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getPokemons(offset))
     flatListRef.current.scrollToOffset({ animated: true, offset: 0 });
   }, [offset])

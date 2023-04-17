@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, View, FlatList } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPokemonDetail } from '../store/actions/pokemonDetail.action'
 
@@ -10,7 +10,7 @@ const PokemonDetailScreen = ({ route }) => {
 	const dispatch = useDispatch()
 	const pokemon = useSelector(state => state.pokemonDetail.pokemonData)
 
-	React.useEffect(() => {
+	useEffect(() => {
 		dispatch(getPokemonDetail(route.params.pokemonName))
 		console.log(route.params.pokemonName)
 	}, [])

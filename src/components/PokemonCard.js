@@ -1,6 +1,6 @@
-import { ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import COLORS from '../constants/Colors'
 import { useSelector } from 'react-redux'
@@ -27,11 +27,11 @@ const PokemonCard = ({ pokemon, onSelect, onPress, favList, id }) => {
         />
       </TouchableOpacity>
       <TouchableOpacity style={styles.pokemonName} onPress={() => onSelect(pokemon)}>
-      {
-        id ? 
-        <Text style={styles.text}>{pokemon.id} - {pokemon.name}</Text> :
-        <Text style={styles.text}> {pokemon.name}</Text>
-      }
+        {
+          id ?
+            <Text style={styles.text}>{pokemon.id} - {pokemon.name}</Text> :
+            <Text style={styles.text}> {pokemon.name}</Text>
+        }
       </TouchableOpacity>
     </View>
   )
