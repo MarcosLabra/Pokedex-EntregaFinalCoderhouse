@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPokemonDetail } from '../store/actions/pokemonDetail.action'
 
-import COLORS from '../constants/Colors'
+import COLORS from '../constants/COLORS'
 import TypeCard from '../components/TypeCard'
 
 const PokemonDetailScreen = ({ route }) => {

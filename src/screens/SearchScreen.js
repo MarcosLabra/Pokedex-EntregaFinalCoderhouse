@@ -4,7 +4,7 @@ import { View, Text, TextInput, Button, Image, StyleSheet, FlatList } from 'reac
 import { getPokemonData } from '../utils/getPokemons';
 import TypeCard from '../components/TypeCard';
 
-import COLORS from '../constants/Colors';
+import COLORS from '../constants/COLORS';
 
 const SearchScreen = () => {
   const [searchTerm, setSearchTerm] = useState('');

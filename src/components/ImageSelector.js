@@ -5,7 +5,7 @@ import * as ImagePicker from 'expo-image-picker'
 import { Ionicons } from '@expo/vector-icons';
 
 import COLORS from '../constants/Colors'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addPic } from '../store/actions/auth.actions'
 
 const ImageSelector = ({ userPic }) => {

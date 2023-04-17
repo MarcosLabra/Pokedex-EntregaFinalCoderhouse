@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, TextInput } from 'react-native'
 import React, { useState } from 'react'
-import COLORS from '../constants/Colors'
+import COLORS from '../constants/COLORS'
 import { useDispatch, useSelector } from 'react-redux'
 import { signUp } from '../store/actions/auth.actions'
 

@@ -9,7 +9,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import ProfileScreen from "../../screens/ProfileScreen";
 import SearchScreen from "../../screens/SearchScreen";
 
-import COLORS from "../../constants/Colors";
+import COLORS from "../../constants/COLORS";
 import PokemonNavigator from "../PokemonNavigator";
 import FavPokemonNavigator from "../FavPokemonNavigator";
 

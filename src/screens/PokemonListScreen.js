@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Button, FlatList, StyleSheet, Text, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
-import COLORS from '../constants/Colors'
+import COLORS from '../constants/COLORS'
 import { getPokemons } from '../store/actions/pokemons.actions'
 import { addFavorite } from '../store/actions/favorites.action'
 

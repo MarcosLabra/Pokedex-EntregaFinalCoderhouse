@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
-import COLORS from '../constants/Colors'
+import COLORS from '../constants/COLORS'
 import PokemonCard from '../components/PokemonCard'
 import { removeFavorite, getFavorites } from '../store/actions/favorites.action'
 

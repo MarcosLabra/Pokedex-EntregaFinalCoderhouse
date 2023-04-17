@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import PokemonDetailScreen from '../screens/PokemonDetailScreen'
 
-import COLORS from '../constants/Colors'
+import COLORS from '../constants/COLORS'
 import FavoritesPokemonScreen from '../screens/FavoritesPokemonScreen'
 
 const Stack = createNativeStackNavigator()
