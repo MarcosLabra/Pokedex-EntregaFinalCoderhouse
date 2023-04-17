@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Image, StyleSheet, FlatList } from 'react-native';
-import axios from 'axios';
+
+import { getPokemonData } from '../utils/getPokemons';
 import TypeCard from '../components/TypeCard';
 
 import COLORS from '../constants/Colors';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const SearchScreen = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -13,11 +13,7 @@ const SearchScreen = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${searchTerm}`);
-      const { sprites, height, weight, types } = response.data;
-      const image = sprites.other['official-artwork'].front_default;
-      const pokemonInfo = { image, height, weight, types: types.map((type) => type.type.name) };
-      console.log(pokemonInfo.types)
+      const pokemonInfo = await getPokemonData(searchTerm)
       setPokemonData(pokemonInfo);
       setError(null);
     } catch (error) {
