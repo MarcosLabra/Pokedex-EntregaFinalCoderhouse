@@ -18,24 +18,19 @@ export default function App() {
     OpenSans_400Regular,
     OpenSans_700Bold
   });
-
   React.useEffect(() => {
     if (Loaded) {
       SplashScreen.hideAsync();
     }
   }, [Loaded])
-
   if (!Loaded) {
     return null;
   }
-
   return (
-
     <Provider store={store}>
       <PersistGate loading={null} persistor={storePersisted}>
         <MainNavigator />
       </PersistGate>
     </Provider>
-
   );
 }

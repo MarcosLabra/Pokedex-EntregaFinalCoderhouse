@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { PokemonDetail, PokemonListItem } from '../models/pokemons.model';
+import { URL_API } from '../constants/DataBase';
 
 export const getPokemonData = async (name) => {
   try {
@@ -34,3 +35,10 @@ export const getPokemonList = async (offset) => {
     console.error(error);
   }
 };
+
+export const fetchFavorites = async (user) => {
+  const response = await fetch(`${URL_API}/${user}/favPokemons.json`);
+  const data = await response.json();
+  const favorites = data || [];
+  return favorites
+}

@@ -1,4 +1,6 @@
 import { URL_API } from '../../constants/DataBase'
+import { addFavoritePokemon, deleteFavoritePokemon } from '../../utils/favPokemons'
+import { fetchFavorites } from '../../utils/getPokemons'
 
 export const ADD_FAVORITE = 'ADD_FAVORITE'
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE'
@@ -8,40 +10,29 @@ export const GET_FAVORITES = 'GET_FAVORITES'
 export const addFavorite = (payload, user) => {
   return async dispatch => {
     try {
-      const response = await fetch(`${URL_API}/${user}/favPokemons.json`);
-      const data = await response.json();
-      const favorites = data || [];
-      const exists = Object.values(favorites).some(favorite => favorite.pokemon.name === payload.name);
+      const favorites = await fetchFavorites(user)
+      const exists = Object.values(favorites).find(favorite => favorite.pokemon.name === payload.name);
       if (exists) {
-        alert(`${payload.name} already exists in your favorite list`);
-        return;
-      }
-
-      const responseAdd = await fetch(`${URL_API}/${user}/favPokemons.json`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          date: Date.now(),
+        const key = Object.keys(favorites).find(key => favorites[key].pokemon.name === payload.name);
+        deleteFavoritePokemon(user, key)
+        dispatch({
+          type: REMOVE_FAVORITE,
+        });
+      } else {
+        addFavoritePokemon(user, payload)
+        dispatch({
+          type: ADD_FAVORITE,
           pokemon: payload,
         })
-      })
-
-      alert(`${payload.name} was added to your favorite pokemons`);
-      dispatch({
-        type: ADD_FAVORITE,
-        pokemon: payload,
-      })
-
+      }
     } catch (error) {
       console.log(error.message)
     }
   }
 }
 
+
 export const removeFavorite = (pokemonId, user) => {
-  console.log(pokemonId)
   return async () => {
     try {
       await fetch(`${URL_API}/${user}/favPokemons/${pokemonId}.json`, {

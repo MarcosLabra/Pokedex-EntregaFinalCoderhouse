@@ -3,8 +3,6 @@ import { MaterialIcons } from '@expo/vector-icons'
 import React from 'react'
 
 import COLORS from '../constants/COLORS'
-import { useSelector } from 'react-redux'
-
 
 const PokemonCard = ({ pokemon, onSelect, onPress, favList, id }) => {
 

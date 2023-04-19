@@ -12,7 +12,6 @@ const PokemonDetailScreen = ({ route }) => {
 
 	useEffect(() => {
 		dispatch(getPokemonDetail(route.params.pokemonName))
-		console.log(route.params.pokemonName)
 	}, [])
 
 	return (
