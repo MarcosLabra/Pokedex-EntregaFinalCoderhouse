@@ -1,6 +1,4 @@
-import { URL_API } from '../../constants/DataBase'
-import { PokemonListItem } from '../../models/pokemons.model'
-import { addFavoritePokemon, deleteFavoritePokemon, fetchFavorites } from '../../utils/favPokemons'
+import { addFavoritePokemon, deleteFavoritePokemon, fetchFavorites, getFavPokemonList } from '../../utils/favPokemons'
 
 
 export const ADD_FAVORITE = 'ADD_FAVORITE'
@@ -35,22 +33,7 @@ export const favorite = (payload, user) => {
 export const getFavorites = (user) => {
   return async dispatch => {
     try {
-      const response = await fetch(`${URL_API}/${user}/favPokemons.json`, {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      })
-      const result = await response.json();
-      const favPokemons = Object.keys(result).map(key => {
-        const pokemon = result[key].pokemon;
-        const pokemonListItem = new PokemonListItem(
-          pokemon.id,
-          pokemon.name,
-          pokemon.url,
-          pokemon.sprite
-        );
-        return pokemonListItem;
-      });
+      const favPokemons = await getFavPokemonList(user)
       dispatch({
         type: GET_FAVORITES,
         payload: favPokemons
