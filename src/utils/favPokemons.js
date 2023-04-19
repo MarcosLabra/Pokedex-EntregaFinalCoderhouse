@@ -13,6 +13,9 @@ export const getFavPokemonList = async (user) => {
   try {
     const response = await axios.get(`${URL_API}/${user}/favPokemons.json`);
     const result = response.data;
+    if (!result || Object.keys(result).length === 0) {
+      return [];
+    }
     const favPokemons = Object.keys(result).map(key => {
       const pokemon = result[key].pokemon;
       const pokemonListItem = new PokemonListItem(

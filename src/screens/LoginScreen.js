@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, TextInput } from 'react-native'
+import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, TextInput, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import COLORS from '../constants/COLORS'
 import { useDispatch, useSelector } from 'react-redux'
@@ -42,7 +42,7 @@ const LoginScreen = ({ navigation }) => {
             style={styles.loginButton}
             onPress={onHandleRegister}
           >
-            <Text style={styles.loginButtonText}>{isAuthLoading ? 'Cargando...' : 'Login'}</Text>
+            <Text style={styles.loginButtonText}>{isAuthLoading ? <ActivityIndicator color={COLORS.white}/> : 'Login'}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.prompt}>
