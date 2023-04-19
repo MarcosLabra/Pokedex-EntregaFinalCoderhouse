@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import COLORS from '../constants/COLORS'
 import { getPokemons } from '../store/actions/pokemons.actions'
-import { addFavorite } from '../store/actions/favorites.action'
+import { favorite } from '../store/actions/favorites.action'
 
 
 import PokemonCard from '../components/PokemonCard'
@@ -24,7 +24,7 @@ const PokemonListScreen = ({ navigation }) => {
   }, [offset])
 
 
-  const handlerOnPressItem = item => dispatch(addFavorite(item, user))
+  const handlerOnPressItem = item => dispatch(favorite(item, user))
 
 
   const onSelectPokemon = item => {

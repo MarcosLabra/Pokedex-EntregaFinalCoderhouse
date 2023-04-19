@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import COLORS from '../constants/COLORS'
 import PokemonCard from '../components/PokemonCard'
-import { removeFavorite, getFavorites } from '../store/actions/favorites.action'
+import {getFavorites, favorite } from '../store/actions/favorites.action'
 
 const FavoritesPokemonScreen = ({ navigation }) => {
 
@@ -13,7 +13,7 @@ const FavoritesPokemonScreen = ({ navigation }) => {
   const dispatch = useDispatch()
 
   const handlerOnPressItem = (item) => {
-    dispatch(removeFavorite(item.id, user))
+    dispatch(favorite(item, user))
   }
   const onSelectPokemon = item => {
     navigation.navigate('pokemonDetail', {

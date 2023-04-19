@@ -1,13 +1,14 @@
 import { URL_API } from '../../constants/DataBase'
-import { addFavoritePokemon, deleteFavoritePokemon } from '../../utils/favPokemons'
-import { fetchFavorites } from '../../utils/getPokemons'
+import { PokemonListItem } from '../../models/pokemons.model'
+import { addFavoritePokemon, deleteFavoritePokemon, fetchFavorites } from '../../utils/favPokemons'
+
 
 export const ADD_FAVORITE = 'ADD_FAVORITE'
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE'
 export const GET_FAVORITES = 'GET_FAVORITES'
 
 
-export const addFavorite = (payload, user) => {
+export const favorite = (payload, user) => {
   return async dispatch => {
     try {
       const favorites = await fetchFavorites(user)
@@ -31,22 +32,6 @@ export const addFavorite = (payload, user) => {
   }
 }
 
-
-export const removeFavorite = (pokemonId, user) => {
-  return async () => {
-    try {
-      await fetch(`${URL_API}/${user}/favPokemons/${pokemonId}.json`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      })
-    } catch (error) {
-      console.log(error.message)
-    }
-  }
-}
-
 export const getFavorites = (user) => {
   return async dispatch => {
     try {
@@ -56,10 +41,16 @@ export const getFavorites = (user) => {
         },
       })
       const result = await response.json();
-      const favPokemons = Object.keys(result).map(key => ({
-        ...result[key].pokemon,
-        id: key
-      }))
+      const favPokemons = Object.keys(result).map(key => {
+        const pokemon = result[key].pokemon;
+        const pokemonListItem = new PokemonListItem(
+          pokemon.id,
+          pokemon.name,
+          pokemon.url,
+          pokemon.sprite
+        );
+        return pokemonListItem;
+      });
       dispatch({
         type: GET_FAVORITES,
         payload: favPokemons
