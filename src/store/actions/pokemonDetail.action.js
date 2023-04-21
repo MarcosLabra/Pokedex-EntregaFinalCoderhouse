@@ -7,6 +7,7 @@ export const GET_POKEMON_FAILURE = "GET_POKEMON_FAILURE"
 
 export const getPokemonDetail = (name) => {
     return async dispatch => {
+        dispatch({ type: GET_POKEMON_LOADING })
         try {
             dispatch({ type: GET_POKEMON_LOADING });
             const pokemonData = await getPokemonData(name)

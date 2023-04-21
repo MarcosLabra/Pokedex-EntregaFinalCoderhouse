@@ -1,9 +1,8 @@
-import { ADD_FAVORITE, REMOVE_FAVORITE, GET_FAVORITES, GET_FAVORITE_LOADING,ADD_FAVORITE_LOADING  } from "../actions/favorites.action"
+import { ADD_FAVORITE, REMOVE_FAVORITE, GET_FAVORITES, GET_FAVORITE_LOADING, ADD_FAVORITE_LOADING } from "../actions/favorites.action"
 
 const initialState = {
   favPokemons: [],
-  isLoading: false,
-  addIsLoading: false,
+  isLoading: false
 }
 
 const favoriteReducer = (state = initialState, action) => {
@@ -13,32 +12,25 @@ const favoriteReducer = (state = initialState, action) => {
         ...state,
         isLoading: true
       }
-    case ADD_FAVORITE_LOADING:
-      return {
-        ...state,
-        addIsLoading: true
-      }
     case ADD_FAVORITE:
       const newList = [...state.favPokemons, action.pokemon]
       return {
         ...state,
         favPokemons: newList,
-        addIsLoading:false
+        isLoading: false
       }
     case REMOVE_FAVORITE:
       return {
         ...state,
         favPokemons: favPokemons.filter(pokemon => pokemon.id !== action.pokemonId),
-        addIsLoading:false
+        isLoading: false
       }
     case GET_FAVORITES:
       return {
         ...state,
         favPokemons: action.payload,
-        isLoading:false
+        isLoading: false
       }
-    case "RESET_FAVORITES":
-      return initialState
     default:
       return state
   }

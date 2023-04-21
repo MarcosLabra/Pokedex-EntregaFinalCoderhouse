@@ -5,7 +5,6 @@ export const ADD_FAVORITE = 'ADD_FAVORITE'
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE'
 export const GET_FAVORITES = 'GET_FAVORITES'
 export const GET_FAVORITE_LOADING = 'GET_FAVORITE_LOADING'
-export const ADD_FAVORITE_LOADING = 'ADD_FAVORITE_LOADING'
 
 
 export const favorite = (payload, user) => {
@@ -19,6 +18,7 @@ export const favorite = (payload, user) => {
       if (exists) {
         const key = Object.keys(favorites).find(key => favorites[key].pokemon.name === payload.name);
         deleteFavoritePokemon(user, key)
+
         dispatch({
           type: REMOVE_FAVORITE,
         });
@@ -38,7 +38,6 @@ export const favorite = (payload, user) => {
 export const getFavorites = (user) => {
   return async dispatch => {
     try {
-
       const favPokemons = await getFavPokemonList(user)
       dispatch({
         type: GET_FAVORITES,
@@ -50,10 +49,3 @@ export const getFavorites = (user) => {
   }
 }
 
-export const reset = () => {
-  return async dispatch => {
-    dispatch({
-      type: 'RESET_FAVORITES'
-    })
-  }
-}

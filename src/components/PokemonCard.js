@@ -1,5 +1,6 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
+import { useSelector } from 'react-redux'
 import React from 'react'
 
 import COLORS from '../constants/COLORS'
@@ -7,7 +8,6 @@ import COLORS from '../constants/COLORS'
 const PokemonCard = ({ pokemon, onSelect, onPress, favList, id }) => {
 
   const isFav = favList.find(el => el.name === pokemon.name);
-
   return (
     <View style={styles.card}>
       <TouchableOpacity style={styles.pokemon} onPress={() => onPress(pokemon)}>

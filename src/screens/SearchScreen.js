@@ -11,6 +11,10 @@ const SearchScreen = () => {
   const [pokemonData, setPokemonData] = useState(null);
   const [error, setError] = useState(null);
 
+  const resetPokemonData = () => {
+    setPokemonData(null)
+  }
+
   const handleSearch = async () => {
     try {
       const pokemonInfo = await getPokemonData(searchTerm)
@@ -25,15 +29,7 @@ const SearchScreen = () => {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        value={searchTerm}
-        onChangeText={setSearchTerm}
-        placeholder="Search Pokémon"
-      />
-      {error && <Text style={styles.error}>{error}</Text>}
-      <Button title="Search" onPress={handleSearch} />
-      {pokemonData && (
+      {pokemonData ? (
         <View style={styles.pokemonContainer}>
           <Image style={styles.image} source={{ uri: pokemonData.image }} />
           <Text style={styles.title}>Weight</Text>
@@ -46,7 +42,27 @@ const SearchScreen = () => {
             renderItem={TypeCard}
             keyExtractor={(item) => item}
           />
+          <View style={styles.buttonContainer}>
+            <Button
+              title='search another pokemon'
+              color={COLORS.green}
+              onPress={resetPokemonData}
+            />
+          </View>
         </View>
+      ) : (
+        <>
+          <TextInput
+            style={styles.input}
+            value={searchTerm}
+            onChangeText={setSearchTerm}
+            placeholder="Search Pokémon"
+          />
+          {error && <Text style={styles.error}>{error}</Text>}
+          <Button title="Search"
+            color={COLORS.green}
+            onPress={handleSearch} />
+        </>
       )}
     </View>
   );
@@ -59,6 +75,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  searchBar: {
+    flexDirection: 'row'
   },
   input: {
     width: '80%',
@@ -91,4 +110,7 @@ const styles = StyleSheet.create({
     fontFamily: 'OpenSans_400Regular',
     color: COLORS.black
   },
+  buttonContainer: {
+    margin: 20
+  }
 });
