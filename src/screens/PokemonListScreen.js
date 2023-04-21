@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Button, FlatList, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, Button, FlatList, StyleSheet, Text, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
 import COLORS from '../constants/COLORS'
@@ -15,6 +15,7 @@ const PokemonListScreen = ({ navigation }) => {
   const [offset, setOffset] = useState(0);
   const favList = useSelector(state => state.favorites.favPokemons)
   const pokemons = useSelector(state => state.pokemons.pokemonList)
+  const isLoading = useSelector(state => state.pokemons.isLoading)
   const user = useSelector(state => state.auth.userId)
   const dispatch = useDispatch()
 
@@ -51,20 +52,27 @@ const PokemonListScreen = ({ navigation }) => {
   const flatListRef = useRef(null);
   return (
     <View style={styles.screen}>
-      <FlatList
-        ref={flatListRef}
-        numColumns={2}
-        data={pokemons}
-        renderItem={({ item }) =>
-          <PokemonCard pokemon={item}
-            onSelect={() => onSelectPokemon(item)}
-            onPress={() => handlerOnPressItem(item)}
-            favList={favList}
-            id={true}
-          />
-        }
-        keyExtractor={item => item.id}
-      />
+      {isLoading ?
+        <ActivityIndicator
+          style={styles.spinner}
+          color={COLORS.green}
+          size={50}
+        /> :
+        <FlatList
+          ref={flatListRef}
+          numColumns={2}
+          data={pokemons}
+          renderItem={({ item }) =>
+            <PokemonCard pokemon={item}
+              onSelect={() => onSelectPokemon(item)}
+              onPress={() => handlerOnPressItem(item)}
+              favList={favList}
+              id={true}
+            />
+          }
+          keyExtractor={item => item.id}
+        />
+      }
       <View style={styles.buttonsContainer}>
         <Button
           title='First'
@@ -103,6 +111,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLORS.secondary
+  },
+  spinner: {
+    flex: 1
   },
   text: {
     fontFamily: 'OpenSans_400Regular',

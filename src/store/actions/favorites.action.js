@@ -4,11 +4,16 @@ import { addFavoritePokemon, deleteFavoritePokemon, fetchFavorites, getFavPokemo
 export const ADD_FAVORITE = 'ADD_FAVORITE'
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE'
 export const GET_FAVORITES = 'GET_FAVORITES'
+export const GET_FAVORITE_LOADING = 'GET_FAVORITE_LOADING'
+export const ADD_FAVORITE_LOADING = 'ADD_FAVORITE_LOADING'
 
 
 export const favorite = (payload, user) => {
   return async dispatch => {
     try {
+      dispatch({
+        type: GET_FAVORITE_LOADING
+      })
       const favorites = await fetchFavorites(user)
       const exists = Object.values(favorites).find(favorite => favorite.pokemon.name === payload.name);
       if (exists) {
@@ -33,6 +38,7 @@ export const favorite = (payload, user) => {
 export const getFavorites = (user) => {
   return async dispatch => {
     try {
+
       const favPokemons = await getFavPokemonList(user)
       dispatch({
         type: GET_FAVORITES,

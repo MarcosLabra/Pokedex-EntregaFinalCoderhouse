@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react'
-import { FlatList, StyleSheet, View } from 'react-native'
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
 import COLORS from '../constants/COLORS'
 import PokemonCard from '../components/PokemonCard'
-import {getFavorites, favorite } from '../store/actions/favorites.action'
+import { getFavorites, favorite } from '../store/actions/favorites.action'
 
 const FavoritesPokemonScreen = ({ navigation }) => {
 
   const pokemons = useSelector(state => state.favorites.favPokemons)
+  const isLoading = useSelector(state => state.favorites.isLoading)
   const user = useSelector(state => state.auth.userId)
   const dispatch = useDispatch()
 
@@ -29,17 +30,23 @@ const FavoritesPokemonScreen = ({ navigation }) => {
 
   return (
     <View style={styles.screen}>
-      <FlatList
-        numColumns={2}
-        data={pokemons}
-        renderItem={({ item }) => <PokemonCard
-          pokemon={item}
-          onSelect={() => onSelectPokemon(item)}
-          onPress={() => handlerOnPressItem(item)}
-          favList={pokemons}
+      {isLoading ?
+        <ActivityIndicator
+          style={styles.spinner}
+          color={COLORS.green}
+          size={50}
+        /> :
+        <FlatList
+          numColumns={2}
+          data={pokemons}
+          renderItem={({ item }) => <PokemonCard
+            pokemon={item}
+            onSelect={() => onSelectPokemon(item)}
+            onPress={() => handlerOnPressItem(item)}
+            favList={pokemons}
+          />}
+          keyExtractor={item => item.id}
         />}
-        keyExtractor={item => item.id}
-      />
     </View >
   )
 }

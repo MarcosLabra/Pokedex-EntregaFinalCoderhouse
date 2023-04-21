@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_UP, ADD_PIC } from "../actions/auth.actions";
+import { SIGN_IN, SIGN_UP, ADD_PIC, SIGN_FAIL, SIGN_UP_START, SIGN_IN_START } from "../actions/auth.actions";
 
 const initalState = {
     token: null,
@@ -12,15 +12,20 @@ const initalState = {
 
 const authReducer = (state = initalState, action) => {
     switch (action.type) {
-        case 'SIGN_UP_START':
+        case SIGN_UP_START:
             return {
                 ...state,
                 isLoading: true,
             }
-        case 'SIGN_IN_START':
+        case SIGN_IN_START:
             return {
                 ...state,
                 isLoading: true,
+            }
+        case SIGN_FAIL:
+            return{
+                ...state,
+                isLoading: false,
             }
         case SIGN_UP:
             return {

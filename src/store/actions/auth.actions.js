@@ -1,16 +1,18 @@
 import * as FileSystem from 'expo-file-system'
 import { SIGN_UP_URL, SIGN_IN_URL } from "../../constants/DataBase";
+
 export const ADD_PIC = 'ADD_PIC'
 export const SIGN_UP = "SIGN_UP";
-export const SIGN_UP_FAIL = "SIGN_UP_FAIL";
 export const SIGN_IN = "SIGN_IN";
-export const SIGN_IN_FAIL = "SIGN_IN_FAIL";
+export const SIGN_FAIL = "SIGN_UP_FAIL";
+export const SIGN_UP_START = 'SIGN_UP_START';
+export const SIGN_IN_START = 'SIGN_IN_START';
 
 export const signUp = (email, password, displayName) => {
   return async dispatch => {
     try {
       dispatch({
-        type: 'SIGN_UP_START'
+        type: SIGN_UP_START
       })
       const response = await fetch(SIGN_UP_URL, {
         method: 'POST',
@@ -46,7 +48,7 @@ export const signUp = (email, password, displayName) => {
       })
     } catch (error) {
       dispatch({
-        type: "SIGN_UP_FAIL"
+        type: SIGN_FAIL
       })
       alert(error);
     }
@@ -57,7 +59,7 @@ export const signIn = (email, password) => {
   return async dispatch => {
     try {
       dispatch({
-        type: 'SIGN_IN_START'
+        type: SIGN_IN_START
       })
       const response = await fetch(SIGN_IN_URL, {
         method: 'POST',
@@ -70,19 +72,20 @@ export const signIn = (email, password) => {
           returnSecureToken: true
         }),
       });
-      const data = await response.json();
-
+      let data = null;
+      try {
+        data = await response.json();
+      } catch (error) {
+        console.error(error);
+      }
       if (!response.ok) {
-        const errorResData = await response.json();
-        const errorId = errorResData.error.message;
+        const errorId = data?.error?.message;
         let message = 'Usuario o contraseña incorrecta!';
-
         if (errorId === 'USER_DISABLED') {
           message = 'Su usuario a sido suspendido';
         }
         throw new Error(message);
       }
-
       dispatch({
         type: SIGN_IN,
         token: data.idToken,
@@ -92,7 +95,7 @@ export const signIn = (email, password) => {
       })
     } catch (error) {
       dispatch({
-        type: "SIGN_IN_FAIL"
+        type: SIGN_FAIL
       })
       alert(error);
     }
@@ -113,7 +116,7 @@ export const signOut = () => {
       })
     } catch (error) {
       dispatch({
-        type: "SIGN_IN_FAIL"
+        type: SIGN_FAIL
       })
       alert(error);
     }

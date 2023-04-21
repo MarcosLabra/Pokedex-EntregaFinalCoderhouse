@@ -8,6 +8,9 @@ export const GET_POKEMONS_FAILURE = "GET_POKEMONS_FAILURE"
 export const getPokemons = (offset) => {
   return async dispatch => {
     try {
+      dispatch({
+        type: GET_POKEMONS_LOADING
+      })
       const pokemonData = await getPokemonList(offset)
         dispatch({
           type: GET_POKEMONS_SUCCESS,
