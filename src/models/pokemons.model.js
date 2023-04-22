@@ -15,3 +15,13 @@ export class PokemonListItem {
     this.sprite = sprite;
   }
 }
+
+export class FilteredPokemon {
+  constructor(name, weight, height, types, image) {
+    this.name = name;
+    this.weight = weight;
+    this.height = height;
+    this.types = types;
+    this.image = image;
+  }
+}

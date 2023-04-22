@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Image, StyleSheet, FlatList } from 'react-native';
+import { View, Text, TextInput, Button, Image, StyleSheet, FlatList, ActivityIndicator, Keyboard, Dimensions } from 'react-native';
 
-import { getPokemonData } from '../utils/getPokemons';
+import { getFilteredPokemonData, getPokemonData } from '../utils/getPokemons';
 import TypeCard from '../components/TypeCard';
 
 import COLORS from '../constants/COLORS';
@@ -9,6 +9,7 @@ import COLORS from '../constants/COLORS';
 const SearchScreen = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [pokemonData, setPokemonData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null);
 
   const resetPokemonData = () => {
@@ -17,40 +18,40 @@ const SearchScreen = () => {
 
   const handleSearch = async () => {
     try {
-      const pokemonInfo = await getPokemonData(searchTerm)
-      setPokemonData(pokemonInfo);
+      Keyboard.dismiss();
+      setIsLoading(true)
+      const pokemonsInfo = await getFilteredPokemonData(searchTerm)
+      setPokemonData(pokemonsInfo);
+      setIsLoading(false)
       setError(null);
     } catch (error) {
       console.log(error);
       setPokemonData(null);
+      setIsLoading(false)
       setError('Cant find this pokemon');
     }
   };
 
+  const renderPokemon = ({ item }) => {
+    return (
+      <View style={styles.pokemonContainer}>
+        <Image style={styles.image} source={{ uri: item.image }} />
+        <Text style={styles.title}>{item.name}</Text>
+        <Text style={styles.text}>Weight: {item.weight} kg</Text>
+        <Text style={styles.text}>Height: {item.height} cm</Text>
+        <Text style={styles.title}>Types</Text>
+        <FlatList
+          data={item.types}
+          renderItem={TypeCard}
+          keyExtractor={(type) => type}
+        />
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
-      {pokemonData ? (
-        <View style={styles.pokemonContainer}>
-          <Image style={styles.image} source={{ uri: pokemonData.image }} />
-          <Text style={styles.title}>Weight</Text>
-          <Text style={styles.text}>{pokemonData.weight} kg</Text>
-          <Text style={styles.title}>Height</Text>
-          <Text style={styles.text}>{pokemonData.height} cm</Text>
-          <Text style={styles.title}>Types</Text>
-          <FlatList
-            data={pokemonData.types}
-            renderItem={TypeCard}
-            keyExtractor={(item) => item}
-          />
-          <View style={styles.buttonContainer}>
-            <Button
-              title='search another pokemon'
-              color={COLORS.green}
-              onPress={resetPokemonData}
-            />
-          </View>
-        </View>
-      ) : (
+      {!pokemonData ? (
         <>
           <TextInput
             style={styles.input}
@@ -58,13 +59,35 @@ const SearchScreen = () => {
             onChangeText={setSearchTerm}
             placeholder="Search Pokémon"
           />
-          {error && <Text style={styles.error}>{error}</Text>}
-          <Button title="Search"
-            color={COLORS.green}
-            onPress={handleSearch} />
+          <Button title="Search" color={COLORS.green} onPress={handleSearch} />
+          {isLoading &&
+            <>
+              <ActivityIndicator size='large' color={COLORS.green} style={styles.activityIndicator} />
+              <Text>Please wait it could take a minute</Text>
+            </>}
+        </>
+      ) : (
+        <>
+          <FlatList
+            data={pokemonData}
+            renderItem={renderPokemon}
+            keyExtractor={(pokemon) => pokemon.name}
+            horizontal={true}
+            pagingEnabled={true}
+            style={styles.flatList}
+          />
+          <View style={styles.buttonContainer}>
+            <Button
+              title="search another pokemon"
+              color={COLORS.green}
+              onPress={resetPokemonData}
+            />
+          </View>
         </>
       )}
+      {error && <Text style={styles.error}>{error}</Text>}
     </View>
+
   );
 };
 
@@ -83,10 +106,13 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 40,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: COLORS.green,
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 20,
+  },
+  activityIndicator: {
+    marginVertical: 30
   },
   error: {
     color: 'red',
@@ -94,6 +120,9 @@ const styles = StyleSheet.create({
   },
   pokemonContainer: {
     alignItems: 'center',
+  },
+  flatList: {
+    marginTop: 30
   },
   image: {
     width: 250,

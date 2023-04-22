@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { PokemonDetail, PokemonListItem } from '../models/pokemons.model';
+import { FilteredPokemon, PokemonDetail, PokemonListItem } from '../models/pokemons.model';
 import { URL_API } from '../constants/DataBase';
 
 export const getPokemonData = async (name) => {
@@ -42,3 +42,31 @@ export const fetchFavorites = async (user) => {
   const favorites = data || [];
   return favorites
 }
+
+
+
+
+export const getFilteredPokemonData = async (searchTerm) => {
+  try {
+    const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=1118');
+    const { results } = response.data;
+    const pokemonDataPromises = results.map(async (result) => {
+      const pokemonResponse = await axios.get(result.url);
+      return pokemonResponse.data;
+    });
+    const pokemonDataArray = await Promise.all(pokemonDataPromises);
+    const filteredPokemonDataArray = pokemonDataArray.filter(
+      (pokemonData) => pokemonData.name.includes(searchTerm.toLowerCase())
+    );
+    return filteredPokemonDataArray.map((pokemonData) => {
+      const { name, weight, height, sprites, types } = pokemonData;
+      const imageUrl = sprites.other['official-artwork'].front_default;
+      const pokemonTypes = types.map((type) => type.type.name);
+      return new FilteredPokemon(name, weight, height, pokemonTypes, imageUrl);
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error retrieving data from the API');
+  }
+};
+

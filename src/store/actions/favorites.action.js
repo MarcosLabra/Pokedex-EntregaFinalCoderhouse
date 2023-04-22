@@ -1,3 +1,4 @@
+import { ToastAndroid } from 'react-native'
 import { addFavoritePokemon, deleteFavoritePokemon, fetchFavorites, getFavPokemonList } from '../../utils/favPokemons'
 
 
@@ -22,18 +23,23 @@ export const favorite = (payload, user) => {
         dispatch({
           type: REMOVE_FAVORITE,
         });
+
+        ToastAndroid.show('Pokemon removed from favorites', ToastAndroid.SHORT); // Agrega el toast aquí
       } else {
         addFavoritePokemon(user, payload)
         dispatch({
           type: ADD_FAVORITE,
           pokemon: payload,
         })
+
+        ToastAndroid.show('Pokemon added to favorites', ToastAndroid.SHORT); // Agrega el toast aquí
       }
     } catch (error) {
       console.log(error.message)
     }
   }
 }
+
 
 export const getFavorites = (user) => {
   return async dispatch => {
