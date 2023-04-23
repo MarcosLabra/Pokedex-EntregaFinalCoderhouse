@@ -23,7 +23,7 @@ const authReducer = (state = initalState, action) => {
                 isLoading: true,
             }
         case SIGN_FAIL:
-            return{
+            return {
                 ...state,
                 isLoading: false,
             }

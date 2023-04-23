@@ -1,6 +1,5 @@
-import { ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
-import { useSelector } from 'react-redux'
 import React from 'react'
 
 import COLORS from '../constants/COLORS'

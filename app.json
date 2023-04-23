@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "desafio-navegacion",
-    "slug": "desafio-navegacion",
+    "name": "Pokedex-coderhouse",
+    "slug": "Pokedex-coderhouse",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

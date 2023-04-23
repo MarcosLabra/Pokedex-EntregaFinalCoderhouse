@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Button, Alert, TouchableHighlight, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, Button, Alert, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import * as ImagePicker from 'expo-image-picker'
 

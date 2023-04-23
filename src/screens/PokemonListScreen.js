@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { ActivityIndicator, Button, FlatList, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, Button, FlatList, StyleSheet, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
 import COLORS from '../constants/COLORS'

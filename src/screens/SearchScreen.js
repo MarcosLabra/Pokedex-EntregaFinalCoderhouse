@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Image, StyleSheet, FlatList, ActivityIndicator, Keyboard, Dimensions } from 'react-native';
+import { View, Text, TextInput, Button, Image, StyleSheet, FlatList, ActivityIndicator, Keyboard } from 'react-native';
 
-import { getFilteredPokemonData, getPokemonData } from '../utils/getPokemons';
+import { getFilteredPokemonData } from '../utils/getPokemons';
 import TypeCard from '../components/TypeCard';
 
 import COLORS from '../constants/COLORS';
