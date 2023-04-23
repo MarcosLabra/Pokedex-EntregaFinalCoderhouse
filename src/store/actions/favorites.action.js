@@ -17,22 +17,22 @@ export const favorite = (payload, user) => {
       const favorites = await fetchFavorites(user)
       const exists = Object.values(favorites).find(favorite => favorite.pokemon.name === payload.name);
       if (exists) {
+        ToastAndroid.show('Removing from favorites', ToastAndroid.SHORT);
         const key = Object.keys(favorites).find(key => favorites[key].pokemon.name === payload.name);
         deleteFavoritePokemon(user, key)
-
         dispatch({
           type: REMOVE_FAVORITE,
+          pokemonId:payload.id
         });
-
-        ToastAndroid.show('Pokemon removed from favorites', ToastAndroid.SHORT); // Agrega el toast aquí
+        ToastAndroid.show('Pokemon removed successfully', ToastAndroid.SHORT);
       } else {
+        ToastAndroid.show('Adding to favorites', ToastAndroid.SHORT);
         addFavoritePokemon(user, payload)
         dispatch({
           type: ADD_FAVORITE,
           pokemon: payload,
         })
-
-        ToastAndroid.show('Pokemon added to favorites', ToastAndroid.SHORT); // Agrega el toast aquí
+        ToastAndroid.show('Pokemon added successfully', ToastAndroid.SHORT);
       }
     } catch (error) {
       console.log(error.message)

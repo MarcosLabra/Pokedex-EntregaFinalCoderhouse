@@ -22,7 +22,7 @@ const favoriteReducer = (state = initialState, action) => {
     case REMOVE_FAVORITE:
       return {
         ...state,
-        favPokemons: favPokemons.filter(pokemon => pokemon.id !== action.pokemonId),
+        favPokemons: state.favPokemons.filter(pokemon => pokemon.id !== action.pokemonId),
         isLoading: false
       }
     case GET_FAVORITES:
