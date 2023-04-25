@@ -19,6 +19,7 @@ const SearchScreen = () => {
   const handleSearch = async () => {
     try {
       Keyboard.dismiss();
+      setError(null);
       setIsLoading(true)
       const pokemonsInfo = await getFilteredPokemonData(searchTerm)
       setPokemonData(pokemonsInfo);
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
   },
   error: {
     color: 'red',
-    marginBottom: 20,
+    marginVertical: 20,
   },
   pokemonContainer: {
     alignItems: 'center',

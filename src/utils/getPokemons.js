@@ -56,8 +56,11 @@ export const getFilteredPokemonData = async (searchTerm) => {
     });
     const pokemonDataArray = await Promise.all(pokemonDataPromises);
     const filteredPokemonDataArray = pokemonDataArray.filter(
-      (pokemonData) => pokemonData.name.includes(searchTerm.toLowerCase())
+      (pokemonData) => pokemonData.name.includes(searchTerm.toLowerCase().trim().replace(/\s+/g, ''))
     );
+    if (filteredPokemonDataArray.length === 0) {
+      throw new Error('No se encontraron Pokémon que coincidan con el término de búsqueda.');
+    }
     return filteredPokemonDataArray.map((pokemonData) => {
       const { name, weight, height, sprites, types } = pokemonData;
       const imageUrl = sprites.other['official-artwork'].front_default;
@@ -69,4 +72,5 @@ export const getFilteredPokemonData = async (searchTerm) => {
     throw new Error('Error retrieving data from the API');
   }
 };
+
 
