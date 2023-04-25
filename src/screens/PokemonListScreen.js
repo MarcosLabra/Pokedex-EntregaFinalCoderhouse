@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import COLORS from '../constants/COLORS'
 import { getPokemons } from '../store/actions/pokemons.actions'
-import { favorite } from '../store/actions/favorites.action'
+import { favorite, getFavorites } from '../store/actions/favorites.action'
 
 
 import PokemonCard from '../components/PokemonCard'
@@ -21,6 +21,7 @@ const PokemonListScreen = ({ navigation }) => {
 
   useEffect(() => {
     dispatch(getPokemons(offset))
+    dispatch(getFavorites(user))
     flatListRef.current.scrollToOffset({ animated: true, offset: 0 });
   }, [offset])
 

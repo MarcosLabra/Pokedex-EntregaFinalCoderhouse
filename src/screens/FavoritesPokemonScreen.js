@@ -13,6 +13,10 @@ const FavoritesPokemonScreen = ({ navigation }) => {
   const user = useSelector(state => state.auth.userId)
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    dispatch(getFavorites(user))
+  })
+
   const handlerOnPressItem = (item) => {
     dispatch(favorite(item, user))
   }
@@ -23,10 +27,6 @@ const FavoritesPokemonScreen = ({ navigation }) => {
       pokemonUrl: item.url
     })
   }
-
-  useEffect(() => {
-    dispatch(getFavorites(user))
-  })
 
   return (
     <View style={styles.screen}>
